@@ -5,7 +5,7 @@
 
 # PLEASE CHANGE ALL THESE VARIABLES TO SUIT YOURS
 HOST=ispc
-DOMAIN=$DOMAIN
+DOMAIN=server.tld
 OLIPV4=192.168.0.200 # normally based on your vm's image ip
 NUIPV4=192.168.0.201
 OLIPV6=fe80::ac:76ff:fe2c:166e  # normally based on your vm's image ip
