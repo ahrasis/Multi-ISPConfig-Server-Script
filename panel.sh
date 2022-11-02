@@ -71,4 +71,4 @@ wget -O - https://get.ispconfig.org | sh -s -- --use-nginx --unattended-upgrades
 
 # Do not run ISPConfig until you change the root password for mysql and use fixed installer_base.lib.php which you must do by opening another CLI interface via ssh
 
-ufw allow from 10.0.64.0/24 to any port 3306 proto tcp
+ufw allow from 192.168.0.0/24 to any port 3306 proto tcp
