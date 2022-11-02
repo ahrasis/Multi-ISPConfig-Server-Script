@@ -169,7 +169,7 @@ EOF
 
 systemctl restart rspamd
 
-ufw allow from 10.0.64.0/24 to any port 3306 proto tcp
-ufw allow from 10.0.64.0/24 to any port 12345 proto tcp
+ufw allow from 192.168.0.0/24 to any port 3306 proto tcp
+ufw allow from 192.168.0.0/24 to any port 12345 proto tcp
 
 # Don't forget to create website and add nginx directive accordingly as this is nginx script.
