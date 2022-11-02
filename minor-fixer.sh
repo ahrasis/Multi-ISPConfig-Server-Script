@@ -25,6 +25,6 @@ if [ -d "$ispc-ai" ]; then
 	user=root
 	password=$GENPW # change to password given by ISPConfig AI accordingly
 	database=mysql
-	# change  NEWPASSWORD to your  preferred password
-	mysql --user="$user" --password="$password" --database="$database" --execute="ALTER USER 'root'@'localhost' IDENTIFIED BY '$PANELPW';"
+	# change ChangeMePW to your preferred password
+	mysql --user="$user" --password="$password" --database="$database" --execute="ALTER USER 'root'@'localhost' IDENTIFIED BY 'ChangeMePW';"
 fi
