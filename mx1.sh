@@ -23,7 +23,7 @@ hostname $HOST
 
 # change all these ips or comment out accordingly of you don't have any of them
 OLIPV4=192.168.0.200 # normally based on your vm's image ip
-NUIPV4=192.168.0.202
+NUIPV4=192.168.0.203
 OLIPV6=fe80::ac:76ff:fe2c:166e  # normally based on your vm's image ip
 NUIPV6=$(/usr/bin/ip a | sed '/inet6/!d; /2001/d;  /dadfailed/d; /host/d; s/.*inet6 //; s_/.*__p; d')
 sed -i "s/#OLIPV4/$IPV4/" /etc/netplan/01-netcfg.yaml
