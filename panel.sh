@@ -11,8 +11,7 @@ NUIPV4=192.168.0.201
 OLIPV6=fe80::ac:76ff:fe2c:166e  # normally based on your vm's image ip
 DNSKEY=XXXXXXXXXXXXXXXXXXXXXX
 DNSMAIL=$HOST@ispc.server.tld
-NEWPW=NEWPW
-
+PANELPW=PANELPW
 WEBPW=WEBPW
 MX1PW=MX1PW
 MX2PW=MX2PW
@@ -109,7 +108,7 @@ user=root
 password=$GENPW # change to password given by ISPConfig AI accordingly
 database=mysql
 # change  NEWPASSWORD to your  preferred password
-mysql --user="$user" --password="$password" --database="$database" --execute="ALTER USER 'root'@'localhost' IDENTIFIED BY '$NEWPW';"
+mysql --user="$user" --password="$password" --database="$database" --execute="ALTER USER 'root'@'localhost' IDENTIFIED BY '$PANELPW';"
 
 # add other servers
 
@@ -147,7 +146,7 @@ wget -O - https://get.ispconfig.org | sh -s -- --use-nginx --unattended-upgrades
 ufw allow from 192.168.0.0/24 to any port 3306 proto tcp
 
 user=root
-password=$NEWPW
+password=$PANELPW
 database=mysql
 
 mysql --user="$user" --password="$NEWPW" --database="$database" --execute="CREATE USER 'root'@'192.168.0.202' IDENTIFIED BY '$WEBPW';"
