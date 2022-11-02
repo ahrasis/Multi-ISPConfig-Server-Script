@@ -11,7 +11,14 @@ NUIPV4=192.168.0.201
 OLIPV6=fe80::ac:76ff:fe2c:166e  # normally based on your vm's image ip
 DNSKEY=XXXXXXXXXXXXXXXXXXXXXX
 DNSMAIL=$HOST@ispc.server.tld
-NEWPW=nEwPw
+NEWPW=NEWPW
+
+WEBPW=WEBPW
+MX1PW=MX1PW
+MX2PW=MX2PW
+DNS1PW=DNS1PW
+DNS2PW=DNS2PW
+MAILPW=MAILPW
 
 # change all these ips and hostnames or rename or comment them out accordingly
 cat <<EOF > temp.txt
