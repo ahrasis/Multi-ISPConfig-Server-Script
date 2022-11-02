@@ -66,6 +66,6 @@ certbot certonly \
   --cert-name $HOST.server.tld \
   -d $HOST.server.tld
   
-wget -O - https://get.ispconfig.org | sh -s --  --use-nginx --unattended-upgrades --use-certbot --no-mail --no-dns --roundcube --use-php=system --interactive
+wget -O - https://get.ispconfig.org | sh -s -- --use-nginx --unattended-upgrades --use-certbot --no-mail --no-dns --interactive
 
 # Do not run ISPConfig until you change the root password for mysql and use fixed installer_base.lib.php which you must do by opening another CLI interface via ssh
