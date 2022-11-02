@@ -17,7 +17,7 @@ sed -i -e "/.*192.*/r temp.txt" -e "//d" /etc/hosts
 cat /etc/hosts
 rm temp.txt
 
-HOST=web01
+HOST=dns1
 echo $HOST > /etc/hostname
 hostname $HOST
 
