@@ -45,9 +45,10 @@ chmod 600 .secrets -R
 apt -y install snapd
 snap install core; snap refresh core
 snap install --classic certbot
-snap install certbot-dns-cloudflare
 ln -s /snap/bin/certbot /usr/bin/certbot
 ln -s /snap/bin/certbot /usr/local/bin/certbot
+apt -y install python3-pip
+pip3 install certbot-dns-cloudflare
 
 cd /tmp
 wget https://git.ispconfig.org/ispconfig/ispconfig3/-/raw/develop/server/scripts/letsencrypt_renew_hook.sh
