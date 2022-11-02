@@ -68,9 +68,70 @@ certbot certonly \
   --cert-name $HOST.server.tld \
   -d $HOST.server.tld
 
+cat <<EOF > /etc/init.d/installer-lib-temporary-fixer.sh
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides: ISPC INSTALLER LIB TEMPORARY FIXER FOR CERTBOT
+# Required-Start: $local_fs $network
+# Required-Stop: $local_fs
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: INSTALLER LIB TEMPORARY FIXER
+# Description: Fix installer_base.lib.php v3.2.8p2 from line 3179 to 3188.
+### END INIT INFO
+
+# installer fixer
+cd /tmp
+wget https://www.ispconfig.org/downloads/ISPConfig-3.2.8p2.tar.gz
+tar xvfz ISPConfig-3.2.8p2.tar.gz
+cd /tmp/ispconfig*/install/lib
+wget https://raw.githubusercontent.com/ahrasis/Multi-ISPConfig-Server-Script/main/replace.txt
+sed -i $'3179r replace.txt\n;3179,3188d' installer_base.lib.php
+
+# change mysql root password
+SLOG=$(ls /tmp/ispconfig-ai/var/log/setup*)
+LINE=$(awk '/Your MySQL root password is/' $SLOG)
+GENPW=$($echo "$LINE" | awk '{print $NF}')
+user=root
+password=$GENPW # change to password given by ISPConfig AI accordingly
+database=mysql
+# change  NEWPASSWORD to your  preferred password
+mysql --user="$user" --password="$password" --database="$database" --execute="ALTER USER 'root'@'localhost' IDENTIFIED BY 'NEWPASSWORD';"
+EOF
+chmod +x /etc/init.d/installer-lib-temporary-fixer.sh
+
+cat <<EOF > /etc/systemd/system/installer-lib-temporary-fix.service
+[Unit] 
+Description="Run script to fix installer_base.lib.php v3.2.8p2"
+
+[Service]
+ExecStart=/etc/init.d/installer-lib-temporary-fixer.sh
+EOF
+
+cat <<EOF > /etc/systemd/system/installer-lib-temporary-fix.path
+[Unit]
+Description="Monitor installer path to trigger a temporary fix service"
+
+[Path]
+PathModified=/tmp/ispconfig3_install/install/
+Unit=installer-lib-temporary-fix.service
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+systemctl start installer-lib-temporary-fix.path
+systemctl enable installer-lib-temporary-fix.path
+
 # note that I prefer this to be interactive
 wget -O - https://get.ispconfig.org | sh -s -- --use-nginx --unattended-upgrades --use-certbot --no-mail --no-dns --use-php=system --interactive
 
-# Do not run ISPConfig until you change the root password for mysql and use fixed installer_base.lib.php which you must do by opening another CLI interface via ssh
+# You may put ISPConfig installer on hold and if you prefer to change the root password for mysql first, if you prefer it.
 
 ufw allow from 192.168.0.0/24 to any port 3306 proto tcp
+
+systemctl disable installer-lib-temporary-fix.path
+systemctl stop installer-lib-temporary-fix.path
+rm /etc/init.d/installer-lib-temporary-fixer.sh
+rm /etc/systemd/system/installer-lib-temporary-fix.service
+rm /etc/systemd/system/installer-lib-temporary-fix.path
