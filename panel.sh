@@ -103,6 +103,9 @@ password=$GENPW # change to password given by ISPConfig AI accordingly
 database=mysql
 # change  NEWPASSWORD to your  preferred password
 mysql --user="$user" --password="$password" --database="$database" --execute="ALTER USER 'root'@'localhost' IDENTIFIED BY '$NEWPW';"
+
+# add other servers
+
 EOF
 chmod +x /etc/init.d/installer-lib-temporary-fixer.sh
 
@@ -135,6 +138,35 @@ wget -O - https://get.ispconfig.org | sh -s -- --use-nginx --unattended-upgrades
 # You may put ISPConfig installer on hold and if you prefer to change the root password for mysql first, if you prefer it.
 
 ufw allow from 192.168.0.0/24 to any port 3306 proto tcp
+
+user=root
+password=$NEWPW
+database=mysql
+
+mysql --user="$user" --password="$NEWPW" --database="$database" --execute="CREATE USER 'root'@'192.168.0.202' IDENTIFIED BY '$WEBPW';"
+mysql --user="$user" --password="$NEWPW" --database="$database" --execute="GRANT ALL PRIVILEGES ON * . * TO 'root'@'192.168.0.202' IDENTIFIED BY '$WEBPW' WITH GRANT OPTION MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0 ;"
+mysql --user="$user" --password="$NEWPW" --database="$database" --execute="CREATE USER 'root'@'192.168.0.203' IDENTIFIED BY '$MX1PW';"
+mysql --user="$user" --password="$NEWPW" --database="$database" --execute="GRANT ALL PRIVILEGES ON * . * TO 'root'@'192.168.0.203' IDENTIFIED BY '$MX1PW' WITH GRANT OPTION MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0 ;"
+mysql --user="$user" --password="$NEWPW" --database="$database" --execute="CREATE USER 'root'@'192.168.0.204' IDENTIFIED BY '$MX2PW';"
+mysql --user="$user" --password="$NEWPW" --database="$database" --execute="GRANT ALL PRIVILEGES ON * . * TO 'root'@'192.168.0.204' IDENTIFIED BY '$MX2PW' WITH GRANT OPTION MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0 ;"
+mysql --user="$user" --password="$NEWPW" --database="$database" --execute="CREATE USER 'root'@'192.168.0.205' IDENTIFIED BY '$DNS1PW';"
+mysql --user="$user" --password="$NEWPW" --database="$database" --execute="GRANT ALL PRIVILEGES ON * . * TO 'root'@'192.168.0.205' IDENTIFIED BY '$DNS1PW' WITH GRANT OPTION MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0 ;"
+mysql --user="$user" --password="$NEWPW" --database="$database" --execute="CREATE USER 'root'@'192.168.0.206' IDENTIFIED BY '$DNS2PW';"
+mysql --user="$user" --password="$NEWPW" --database="$database" --execute="GRANT ALL PRIVILEGES ON * . * TO 'root'@'192.168.0.206' IDENTIFIED BY '$DNS2PW' WITH GRANT OPTION MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0 ;"
+mysql --user="$user" --password="$NEWPW" --database="$database" --execute="CREATE USER 'root'@'192.168.0.207' IDENTIFIED BY '$MAILPW';"
+mysql --user="$user" --password="$NEWPW" --database="$database" --execute="GRANT ALL PRIVILEGES ON * . * TO 'root'@'192.168.0.207' IDENTIFIED BY '$MAILPW' WITH GRANT OPTION MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0 ;"
+mysql --user="$user" --password="$NEWPW" --database="$database" --execute="CREATE USER 'root'@'web01.$DOMAIN' IDENTIFIED BY '$WEBPW';"
+mysql --user="$user" --password="$NEWPW" --database="$database" --execute="GRANT ALL PRIVILEGES ON * . * TO 'root'@'web01.$DOMAIN' IDENTIFIED BY '$WEBPW' WITH GRANT OPTION MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0 ;"
+mysql --user="$user" --password="$NEWPW" --database="$database" --execute="CREATE USER 'root'@'mx1.$DOMAIN' IDENTIFIED BY '$MX1PW';"
+mysql --user="$user" --password="$NEWPW" --database="$database" --execute="GRANT ALL PRIVILEGES ON * . * TO 'root'@'mx1.$DOMAIN' IDENTIFIED BY '$MX1PW' WITH GRANT OPTION MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0 ;"
+mysql --user="$user" --password="$NEWPW" --database="$database" --execute="CREATE USER 'root'@'mx2.$DOMAIN' IDENTIFIED BY '$MX2PW';"
+mysql --user="$user" --password="$NEWPW" --database="$database" --execute="GRANT ALL PRIVILEGES ON * . * TO 'root'@'mx2.$DOMAIN' IDENTIFIED BY '$MX2PW' WITH GRANT OPTION MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0 ;"
+mysql --user="$user" --password="$NEWPW" --database="$database" --execute="CREATE USER 'root'@'ns1.$DOMAIN' IDENTIFIED BY '$DNS1PW';"
+mysql --user="$user" --password="$NEWPW" --database="$database" --execute="GRANT ALL PRIVILEGES ON * . * TO 'root'@'ns1.$DOMAIN' IDENTIFIED BY '$DNS1PW' WITH GRANT OPTION MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0 ;"
+mysql --user="$user" --password="$NEWPW" --database="$database" --execute="CREATE USER 'root'@'ns2.$DOMAIN' IDENTIFIED BY '$DNS2PW';"
+mysql --user="$user" --password="$NEWPW" --database="$database" --execute="GRANT ALL PRIVILEGES ON * . * TO 'root'@'ns2.$DOMAIN' IDENTIFIED BY '$DNS2PW' WITH GRANT OPTION MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0 ;"
+mysql --user="$user" --password="$NEWPW" --database="$database" --execute="CREATE USER 'root'@'mail.$DOMAIN' IDENTIFIED BY '$MAILPW';"
+mysql --user="$user" --password="$NEWPW" --database="$database" --execute="GRANT ALL PRIVILEGES ON * . * TO 'root'@'mail.$DOMAIN' IDENTIFIED BY '$MAILPW' WITH GRANT OPTION MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0 ;"
 
 systemctl disable installer-lib-temporary-fix.path
 systemctl stop installer-lib-temporary-fix.path
