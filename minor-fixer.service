@@ -1,0 +1,5 @@
+[Unit] 
+Description="Run script to fix installer_base.lib.php v3.2.8p2"
+
+[Service]
+ExecStart=/etc/init.d/minor-fixer.sh
