@@ -1,0 +1,9 @@
+[Unit]
+Description="Monitor installer path to trigger a minor fixer service"
+
+[Path]
+PathExists=/tmp/ispconfig3_install/install/
+Unit=minor-fixer.service
+
+[Install]
+WantedBy=multi-user.target
