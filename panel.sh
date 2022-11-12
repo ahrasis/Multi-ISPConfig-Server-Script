@@ -42,11 +42,6 @@ sed -i "s/#OLIPV4/$IPV4/" /etc/netplan/01-netcfg.yaml
 sed -i "s/#OLIPV6/$NUIPV6/" /etc/netplan/01-netcfg.yaml
 
 cd /etc/ssl/private
-curl https://ssl-config.mozilla.org/ffdhe4096.txt > dhparam4096.pem
-ln -s dhparam4096.pem dh.pem
-ln -s dhparam4096.pem dhparams.pem
-ln -s dhparam4096.pem pure-ftpd-dhparams.pem
-
 mkdir -p .secrets
 cat <<EOF > .secrets/$HOST.$DOMAIN.ini
 dns_cloudflare_api_key = $DNSKEY
